@@ -92,7 +92,7 @@ ETCD\_CERT\_PATH|Optional config of alternative etcd certificates path. This is 
 **NAME**|**DESCRIPTION**|**EXAMPLE**
 -----|-----|-----
 HUB\_ADDRESS|Address & port of the hub|localhost:2600
-DAEMON\_TYPE|Type of the daemon out of [MASTER|NODE
+DAEMON\_TYPE|Type of the daemon out of [MASTER|NODE|POD|STORAGE]
 POD\_NAMESPACE|The namespace if the daemon runs inside a pod in OpenShift|ose-mon-a
 
 #### Standalone mode
