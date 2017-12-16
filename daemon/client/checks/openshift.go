@@ -130,7 +130,7 @@ func CheckHttpService(slow bool) error {
 func CheckHttpHaProxy(publicUrl string, slow bool) error {
 	log.Println("Checking http via HA-Proxy")
 
-	if err := checkHttp(publicUrl + ":80/" + getEndpoint(slow)); err != nil {
+	if err := checkHttp(publicUrl + ":443/" + getEndpoint(slow)); err != nil {
 		return errors.New("Could not access pods via haproxy. Route/Router problem?")
 	}
 
@@ -254,8 +254,7 @@ func CheckEtcdHealth(etcdIps string, etcdCertPath string) error {
 }
 
 func checkEtcdHealthWithCertPath(msg *string, certPath string, etcdIps string) bool {
-	cmd := exec.Command("etcdctl", "--peers", etcdIps, "--ca-file", certPath+"ca.crt",
-		"--key-file", certPath+"peer.key", "--cert-file", certPath+"peer.crt", "cluster-health")
+	cmd := exec.Command("etcdctl3", "--endpoints", etcdIps, "endpoint health")
 
 	var out bytes.Buffer
 	cmd.Stdout = &out
