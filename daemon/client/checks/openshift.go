@@ -68,28 +68,6 @@ func runOcGetNodes() (string, error) {
 	return string(out), nil
 }
 
-func CheckDnsNslookupOnKubernetes() error {
-	log.Println("Checking nslookup to kubernetes ip")
-
-	cmd := exec.Command("nslookup", daemonDNSEndpoint, kubernetesIP)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	if err != nil {
-		msg := "DNS resolution via nslookup & kubernetes failed." + err.Error()
-		log.Println(msg)
-		return errors.New(msg)
-	}
-
-	stdOut := out.String()
-
-	if strings.Contains(stdOut, "Server") && strings.Count(stdOut, "Address") >= 2 && strings.Contains(stdOut, "Name") {
-		return nil
-	} else {
-		return errors.New("Problem with dns to kubernetes. nsLookup had wrong output")
-	}
-}
-
 func CheckDnsServiceNode() error {
 	log.Println("Checking dns to a openshift service")
 

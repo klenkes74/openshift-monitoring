@@ -15,10 +15,6 @@ func HandleMajorChecks(daemonType string, w http.ResponseWriter, r *http.Request
 			errors = append(errors, err.Error())
 		}
 
-		if err := checks.CheckDnsNslookupOnKubernetes(); err != nil {
-			errors = append(errors, err.Error())
-		}
-
 		if err := checks.CheckDnsServiceNode(); err != nil {
 			errors = append(errors, err.Error())
 		}
@@ -28,6 +24,8 @@ func HandleMajorChecks(daemonType string, w http.ResponseWriter, r *http.Request
 		etcdIps := os.Getenv("ETCD_IPS")
 		registryIp := os.Getenv("REGISTRY_SVC_IP")
 		routerIps := os.Getenv("ROUTER_IPS")
+		masterport := os.Getenv("MASTER_PORT")
+
 		if len(etcdIps) == 0 || len(registryIp) == 0 || len(routerIps) == 0 {
 			log.Fatal("env variables 'ETCD_IPS', 'REGISTRY_SVC_IP', 'ROUTER_IPS' must be specified on type 'MASTER'")
 		}
@@ -50,11 +48,7 @@ func HandleMajorChecks(daemonType string, w http.ResponseWriter, r *http.Request
 			}
 		}
 
-		if err := checks.CheckMasterApis("https://localhost:8443/api"); err != nil {
-			errors = append(errors, err.Error())
-		}
-
-		if err := checks.CheckDnsNslookupOnKubernetes(); err != nil {
+		if err := checks.CheckMasterApis("https://localhost:" + masterport + "/api"); err != nil {
 			errors = append(errors, err.Error())
 		}
 

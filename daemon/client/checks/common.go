@@ -14,12 +14,10 @@ import (
 )
 
 const (
-	daemonDNSEndpoint = "daemon.ose-mon-a.endpoints.cluster.local"
-	daemonDNSServiceA = "daemon.ose-mon-a.svc.cluster.local"
-	daemonDNSServiceB = "daemon.ose-mon-b.svc.cluster.local"
-	daemonDNSServiceC = "daemon.ose-mon-c.svc.cluster.local"
-	daemonDNSPod      = "daemon"
-	kubernetesIP      = "127.0.0.1"
+	daemonDNSServiceA = "daemon.ose-mon-a.svc"
+	daemonDNSServiceB = "daemon.ose-mon-b.svc"
+	daemonDNSServiceC = "daemon.ose-mon-c.svc"
+	daemonDNSPod      = "daemon.svc"
 )
 
 var num = regexp.MustCompile(`\d+(?:\.\d+)?`)

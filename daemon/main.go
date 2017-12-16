@@ -28,9 +28,14 @@ func main() {
 
 		hubAddr := os.Getenv("HUB_ADDRESS")
 		namespace := os.Getenv("POD_NAMESPACE")
+		masterport := os.Getenv("MASTER_PORT")
 
 		if len(hubAddr) == 0 {
 			log.Fatal("env variable 'HUB_ADDRESS' must be specified")
+		}
+
+		if daemonType == "MASTER" && len(masterport) == 0 {
+			log.Fatal("if type is 'MASTER' env variable 'MASTER_PORT' must be specivied")
 		}
 
 		if daemonType == "POD" && len(namespace) == 0 {
